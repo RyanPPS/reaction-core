@@ -35,22 +35,28 @@ function loadMoreProducts() {
   }
 }
 
+function loadMoreProductsManual() {
+  target.data("productScrollLimit", true);
+  Session.set("productScrollLimit",
+    Session.get("productScrollLimit") + ITEMS_INCREMENT || 10);
+}
+
 Template.productGrid.onCreated(() => {
   Template.instance().selectedProducts = new ReactiveVar([]);
 });
 
 Template.productGrid.onRendered(() => {
   // run the above func every time the user scrolls
-  $("#reactionAppContainer").on("scroll", loadMoreProducts);
-  $(window).on("scroll", loadMoreProducts);
+  //$("#reactionAppContainer").on("scroll", loadMoreProducts);
+  //$(window).on("scroll", loadMoreProducts);
 });
 
 Template.productGrid.events({
 
-  "click [data-event-action=loadMoreProducts]": (event) => {
+  "click [data-event-action=loadMoreProductsManual]": (event) => {
     event.preventDefault();
 
-    loadMoreProducts();
+    loadMoreProductsManual();
   },
 
   "change input[name=selectProduct]": (event, template) => {
